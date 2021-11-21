@@ -6,6 +6,7 @@ import { JoinData } from "../types";
 const SYSTEM_NICKNAME = 'chat_system';
 const ROOMS_DATA_CHANNEL = 'rooms_data';
 
+
 const errorResponse = (error = 'Что-то пошло не так!') => ({ error });
 const chatService = new ChatService();
 
@@ -22,7 +23,7 @@ const chatHandler = (io: Server, socket: Socket) => {
       // сообщение подключившемуся пользователю
       socket.emit('message', {
         user: SYSTEM_NICKNAME,
-        text: `${user.name}, приветствуем тебя в ${user.room}.`
+        text: `${user.name}, приветствуем тебя в беседе ${user.room}.`
       });
 
       // сообщение всем

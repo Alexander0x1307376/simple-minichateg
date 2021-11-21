@@ -1,0 +1,21 @@
+.rooms-component {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.no-data {
+  padding: 10px;
+}
+
+.rooms-menu {
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #cacaca;
+  border-radius: 4px;
+  &:hover {
+    overflow: auto;
+  }
+}
