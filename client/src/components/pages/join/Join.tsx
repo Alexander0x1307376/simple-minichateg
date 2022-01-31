@@ -12,26 +12,24 @@ let socket: any;
 
 const Join: React.FC = () => {
 
+
   const [rooms, setRooms] = useState<Rooms>({});
 
+  // состояния полей формы
   const [name, setName] = useState<string>('');
   const [room, setRoom] = useState<string>('');
 
 
   useEffect(() => {
 
-    console.log('Join!!')
-
     socket = io(ENDPOINT);
 
     socket.emit('rooms');
     socket.on('roomsList', (rooms: Rooms) => {
       setRooms(rooms);
-      console.log('rooms!', rooms);
     });
 
     return () => {
-      // socket.emit('disconnect');
       socket.off();
     }
   }, []);
@@ -48,8 +46,8 @@ const Join: React.FC = () => {
               if (name !== values.name) setName(values.name); 
               if (room !== values.room) setRoom(values.room);
             }}
-            onSubmit={({name, room}) => {
-              navigate(`/chat?name=${name}&room=${room}`)
+            onSubmit={({name, room: chatRoom}) => {
+              navigate(`/chat?name=${name}&room=${chatRoom}`)
             }
           }/>
         </div>

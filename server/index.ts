@@ -3,7 +3,6 @@ import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import router from './router';
-import { ChatService } from './services/chatService'; 
 import chatHandler from './handlers/chatHandler';
 
 
@@ -26,8 +25,5 @@ server.listen(port, () => {
 })
 
 io.on('connect', (socket) => {
-
-  console.log('new connection');
   chatHandler(io, socket);
-
 });

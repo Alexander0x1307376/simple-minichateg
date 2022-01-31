@@ -1,5 +1,4 @@
 import React from 'react';
-// import 'bulma/css/bulma.css';
 import 'bulmaswatch/materia/bulmaswatch.scss';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";

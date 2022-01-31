@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
-import { useLocation, } from 'react-router-dom';
+import { useLocation, useNavigate, } from 'react-router-dom';
 import Infobar from '../../shared/infobar/Infobar';
 import Input from '../../shared/input/Input';
 import MessagesContainer from '../../shared/messages/messagesContainer';
@@ -17,6 +17,7 @@ let socket: any;
 const Chat: React.FC = () => {
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [name, setName] = useState<string>('');
   const [room, setRoom] = useState<string>('');
@@ -24,9 +25,9 @@ const Chat: React.FC = () => {
   const [message, handleSetMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
 
-
   useEffect(() => {
     const { name, room } = queryString.parse(location.search) as { name: string, room: string };
+
 
     socket = io(ENDPOINT);
     setName(name);
@@ -34,15 +35,15 @@ const Chat: React.FC = () => {
     
     socket.emit('join', { name, room }, ({error}: {error: string}) => {
       if (error) {
-        alert(error);
+        alert('Ошибка подключения! ' + error);
+        navigate('/');
       }
     });
 
     return () => {
-      // socket.emit('disconnect');
       socket.off();
     }
-  }, [location.search])
+  }, [location.search, navigate])
 
   useEffect(() => {
     socket.on('message', (message: Message) => {

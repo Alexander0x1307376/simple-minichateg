@@ -14,7 +14,7 @@ const chatHandler = (io: Server, socket: Socket) => {
 
   socket.on('join', ({name, room}: JoinData, callback) => {
 
-    console.log(`user ${socket.id} has connected!!!`);
+    console.log(`user ${name} has connected to room '${room}'`);
 
     try {
       const user = chatService.addUser({ id: socket.id, name, room });
@@ -58,6 +58,9 @@ const chatHandler = (io: Server, socket: Socket) => {
         user: user.name,
         text: message
       })
+
+      console.log(`Message sent - user: ${user.name}, room: ${user.room}, text: ${message}`);
+
       callback();
     } 
     catch (e) {
@@ -79,9 +82,9 @@ const chatHandler = (io: Server, socket: Socket) => {
 
   socket.on('disconnect', () => {
 
-    console.log(`user ${socket.id} has disconnected`);
-
     const user = chatService.removeUser(socket.id);
+    console.log(`user ${user?.name} has disconnected`);
+
     if (!user) return;
 
     io.to(user.room).emit('message', { 
