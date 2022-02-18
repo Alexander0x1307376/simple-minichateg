@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 // здесь, по сути, редаксовская логика управления состоянием чата
 // но на useReducer и useContext
